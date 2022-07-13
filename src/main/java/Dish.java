@@ -1,18 +1,17 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
 public class Dish {
 
     private String name;
 
-    private Map<Ingredient, Double> recipe;
+    private Set<Ingredient> recipe;
 
-    public Dish(String name, Map<Ingredient, Double> recipe) {
+    public Dish(String name, Set<Ingredient> recipe) {
         this.name = name;
         this.recipe = recipe;
     }
 
-    public Map<Ingredient, Double> getRecipe() {
+    public Set<Ingredient> getRecipe() {
         return recipe;
     }
 

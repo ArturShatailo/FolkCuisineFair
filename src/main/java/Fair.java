@@ -22,24 +22,25 @@ public class Fair implements Manager{
     }
 
     @Override
-    public void organizeIngredients(){
-        participants.forEach( p -> recipes.add(p.getDish().getRecipe()) );
-        collectIngredients();
-    }
-
-    @Override
     public void collectIngredients() {
-        for(Map<Ingredient, Double> map : recipes){
-            map.forEach((ingredient, amount) ->
-                    ingredients.merge(ingredient, map.get(ingredient), Double::sum)
-            );
-        }
+
+        participants.forEach( p -> ingredients.addAll(p.getDish().getRecipe()));
+
+//        for(Set<Ingredient> set : recipes){
+//            map.forEach((ingredient, amount) ->
+//                    ingredients.merge(ingredient, map.get(ingredient), Double::sum)
+//            );
+//        }
     }
 
     @Override
     public void buyIngredients(){
-        organizeIngredients();
-        Double sum = ingredients.values().stream().mapToDouble(p -> p).sum();
+        collectIngredients();
+
+        Double sum = ingredients.stream().mapToDouble(Ingredient::getFullPrice).sum();
+
+        System.out.println(sum);
+
         totalBalance = totalBalance - sum;
     }
 
@@ -47,11 +48,15 @@ public class Fair implements Manager{
     public void divideIngredients(){
 
         for(Participant participant : participants){
-            participant.getDish().getRecipe().forEach((i, p) -> {
-                ingredients.put(i, ingredients.get(i) - p);
-                participant.getRequestedIngredient().put(i, p);
-            });
+            for(Ingredient ingredient : participant.getDish().getRecipe()){
+                if(ingredients.contains(ingredient)){
+                    participant.getRequestedIngredient().add(ingredient);
+                    ingredients.remove(ingredient);
+                }
+            }
         }
+
+
 
     }
 

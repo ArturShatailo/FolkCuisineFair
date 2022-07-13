@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Participant {
 
@@ -9,15 +11,15 @@ public class Participant {
 
     private Dish dish;
 
-    private Map<Ingredient, Double> requestedIngredient = new HashMap<>();
+    private Set<Ingredient> requestedIngredient = new HashSet<>();
 
-    Participant(String name, String surname, String dish, Map<Ingredient, Double> ingredients){
+    Participant(String name, String surname, String dish, Set<Ingredient> ingredients){
         this.name = name;
         this.surname = surname;
         this.dish = new Dish(dish, ingredients);
     }
 
-    public Map<Ingredient, Double> getRequestedIngredient() {
+    public Set<Ingredient> getRequestedIngredient() {
         return requestedIngredient;
     }
 

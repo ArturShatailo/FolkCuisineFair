@@ -9,20 +9,20 @@ public class Main {
 
         Set<Participant> participants = new HashSet<>();
 
-        Map<Ingredient, Double> a = new HashMap<>();
-        a.put(new Ingredient("ingredient1"), 10.0);
-        a.put(new Ingredient("ingredient2"), 20.0);
+        Set<Ingredient> a = new HashSet<>();
+        a.add(new Ingredient("ingredient1", 2.0, 20.0));
+        a.add(new Ingredient("ingredient2", 3.0, 30.0));
         Participant gg = new Participant("Aleck",
                 "Bolduin",
                 "dishname", a);
 
 
-        Map<Ingredient, Double> b = new HashMap<>();
-        b.put(new Ingredient("ingredient1"), 10.0);
-        b.put(new Ingredient("ingredient3"), 20.0);
-        Participant gh = new Participant("Aleck",
-                "Bolduin",
-                "dishname", b);
+        Set<Ingredient> b = new HashSet<>();
+        b.add(new Ingredient("ingredient1", 4.0, 10.0));
+        b.add(new Ingredient("ingredient3", 1.0, 20.0));
+        Participant gh = new Participant("Bob",
+                "Marley",
+                "dishname2", b);
 
 
         participants.add(gg);
@@ -36,6 +36,7 @@ public class Main {
 
         System.out.println(f);
         System.out.println(Manager.ingredients);
+        System.out.println(gg.getRequestedIngredient().equals(gg.getDish().getRecipe()));
     }
 
 }

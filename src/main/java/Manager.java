@@ -1,16 +1,10 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public interface Manager {
 
-    ArrayList<Map<Ingredient, Double>> recipes = new ArrayList<>();
-
-    Map<Ingredient, Double> ingredients = new HashMap<>();
+    List<Ingredient> ingredients = new ArrayList<>();
 
     void buyIngredients();
-
-    void organizeIngredients();
 
     void divideIngredients();
 
