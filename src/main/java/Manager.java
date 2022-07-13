@@ -2,7 +2,7 @@ import java.util.*;
 
 public interface Manager {
 
-    List<Ingredient> ingredients = new ArrayList<>();
+    List<Ingredient> ingredientsList = new ArrayList<>();
 
     void buyIngredients();
 

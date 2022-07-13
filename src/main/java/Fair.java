@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Fair implements Manager{
 
@@ -11,36 +8,22 @@ public class Fair implements Manager{
 
     private Set<Participant> participants;
 
+
     public Fair(boolean registrationStatus, Double totalBalance, Set<Participant> participants) {
         this.registrationStatus = registrationStatus;
         this.totalBalance = totalBalance;
         this.participants = participants;
     }
 
-    public Set<Participant> getParticipants() {
-        return participants;
-    }
-
     @Override
     public void collectIngredients() {
-
-        participants.forEach( p -> ingredients.addAll(p.getDish().getRecipe()));
-
-//        for(Set<Ingredient> set : recipes){
-//            map.forEach((ingredient, amount) ->
-//                    ingredients.merge(ingredient, map.get(ingredient), Double::sum)
-//            );
-//        }
+        participants.forEach( p -> ingredientsList.addAll(p.getDish().getRecipe()));
     }
 
     @Override
     public void buyIngredients(){
         collectIngredients();
-
-        Double sum = ingredients.stream().mapToDouble(Ingredient::getFullPrice).sum();
-
-        System.out.println(sum);
-
+        double sum = ingredientsList.stream().mapToDouble(Ingredient::getFullPrice).sum();
         totalBalance = totalBalance - sum;
     }
 
@@ -48,18 +31,22 @@ public class Fair implements Manager{
     public void divideIngredients(){
 
         for(Participant participant : participants){
-            for(Ingredient ingredient : participant.getDish().getRecipe()){
-                if(ingredients.contains(ingredient)){
-                    participant.getRequestedIngredient().add(ingredient);
-                    ingredients.remove(ingredient);
-                }
-            }
+
+            List<Ingredient> in =
+                    ingredientsList.stream()
+                            .filter(i -> participant
+                                    .getDish()
+                                    .getRecipe()
+                                    .contains(i))
+                            .toList();
+
+            participant.getRequestedIngredient().addAll(in);
+            ingredientsList.removeAll(in);
+
         }
-
-
-
     }
 
+    
     @Override
     public String toString() {
         return "Fair{" +

@@ -1,17 +1,15 @@
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Participant {
 
-    private String name;
+    private final String name;
 
-    private String surname;
+    private final String surname;
 
-    private Dish dish;
+    private final Dish dish;
 
-    private Set<Ingredient> requestedIngredient = new HashSet<>();
+    private final Set<Ingredient> requestedIngredient = new HashSet<>();
 
     Participant(String name, String surname, String dish, Set<Ingredient> ingredients){
         this.name = name;

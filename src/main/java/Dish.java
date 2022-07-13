@@ -2,9 +2,9 @@ import java.util.Set;
 
 public class Dish {
 
-    private String name;
+    private final String name;
 
-    private Set<Ingredient> recipe;
+    private final Set<Ingredient> recipe;
 
     public Dish(String name, Set<Ingredient> recipe) {
         this.name = name;

@@ -1,6 +1,6 @@
 public class Ingredient {
 
-    private String name;
+    private final String name;
 
     private double amount;
 
@@ -14,14 +14,6 @@ public class Ingredient {
         this.name = name;
         this.amount = amount;
         this.price = price;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public double getFullPrice(){
