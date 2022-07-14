@@ -33,6 +33,8 @@ public class Participant {
                 "Requested ingredient: " + requestedIngredient;
     }
 
+
+    //Returns String for Poster display view.
     public String posterView() {
         return  "\n"+name + " " + surname + " (Dish: " + dish + ")"+"\n";
     }
