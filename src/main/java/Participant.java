@@ -27,11 +27,14 @@ public class Participant {
 
     @Override
     public String toString() {
-        return "Participant{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", dish=" + dish +
-                ", requestedIngredient=" + requestedIngredient +
-                "}\n";
+        return  "\n\n"+"Name: " + name + "\n" +
+                "Surname: " + surname + "\n" +
+                "Dish: " + dish + "\n" +
+                "Requested ingredient: " + requestedIngredient;
     }
+
+    public String posterView() {
+        return  "\n"+name + " " + surname + " (Dish: " + dish + ")"+"\n";
+    }
+
 }

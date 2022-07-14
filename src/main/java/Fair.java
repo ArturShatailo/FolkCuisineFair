@@ -6,18 +6,25 @@ public class Fair implements Manager{
 
     private Double totalBalance;
 
-    private Set<Participant> participants;
+    private final Set<Participant> participants = new HashSet<>();
 
 
-    public Fair(boolean registrationStatus, Double totalBalance, Set<Participant> participants) {
+    public Fair(boolean registrationStatus, Double totalBalance) {
         this.registrationStatus = registrationStatus;
         this.totalBalance = totalBalance;
-        this.participants = participants;
+    }
+
+    public Set<Participant> getParticipants() {
+        return participants;
+    }
+
+    public boolean validateDish(String dishname) {
+        return participants.stream().anyMatch(p -> p.getDish().name().equals(dishname));
     }
 
     @Override
     public void collectIngredients() {
-        participants.forEach( p -> ingredientsList.addAll(p.getDish().getRecipe()));
+        participants.forEach( p -> ingredientsList.addAll(p.getDish().recipe()));
     }
 
     @Override
@@ -36,7 +43,7 @@ public class Fair implements Manager{
                     ingredientsList.stream()
                             .filter(i -> participant
                                     .getDish()
-                                    .getRecipe()
+                                    .recipe()
                                     .contains(i))
                             .toList();
 
@@ -46,14 +53,17 @@ public class Fair implements Manager{
         }
     }
 
-    
+    public void printPoster(Poster poster){
+        System.out.println("\n\n\n");
+        System.out.println("----------------------------------\n");
+        System.out.println(poster);
+        System.out.println("----------------------------------");
+    }
+
     @Override
     public String toString() {
-        return "Fair{" +
-                "registrationStatus=" + registrationStatus +
-                ", totalBalance=" + totalBalance +
-                ", participants=" + participants +
-                "}";
+        String a = "Fair balance: " + totalBalance + " " + participants;
+        return  a.replaceAll("\\[", "").replaceAll("]", "");
     }
 }
 

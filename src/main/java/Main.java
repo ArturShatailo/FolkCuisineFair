@@ -3,21 +3,20 @@ import java.util.Set;
 
 public class Main {
 
+    public static Fair f = new Fair(true, 3000.0);
+
     public static void main(String[] args) {
 
-        Set<Participant> participants = new HashSet<>();
-
-        addParticipant(participants);
-
-        Fair f = new Fair(true, 3000.0, participants);
+        addParticipant();
         f.buyIngredients();
         f.divideIngredients();
-
         System.out.println(f);
-        System.out.println(Manager.ingredientsList);
+
+        Poster poster = new Poster(f.getParticipants(), "Folk Cuisine Fair", "08/08/2022", "In your town");
+        f.printPoster(poster);
     }
 
-    private static void addParticipant(Set<Participant> participants) {
+    private static void addParticipant() {
 
         System.out.println("Input data of participant (enter 'exit' to complete or 'enter' to continue): ");
 
@@ -27,15 +26,23 @@ public class Main {
             System.out.println("Input surname: ");
             String surname = Tech.GetInputStringFunction();
             System.out.println("Input dish name: ");
-            String dishname = Tech.GetInputStringFunction();
+            String dishname = dishValidation(Tech.GetInputStringFunction());
             System.out.println("Now input ingredient (enter 'exit' to complete): ");
             Set<Ingredient> a = ingredientsInput(new HashSet<>());
 
-            participants.add(new Participant(name, surname, dishname, a));
+            f.getParticipants().add(new Participant(name, surname, dishname, a));
 
-            addParticipant(participants);
+            addParticipant();
         }
+    }
 
+    private static String dishValidation(String dishname) {
+        if(f.validateDish(dishname)){
+            System.out.println("This dish has been already registered. Please input another one: ");
+            return dishValidation(Tech.GetInputStringFunction());
+        }else{
+            return dishname;
+        }
     }
 
     private static Set<Ingredient> ingredientsInput(Set<Ingredient> a) {
